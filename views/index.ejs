@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD MongoDB</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+    <h1>CRUD MongoDB</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Nome" required>
+        <input type="number" name="value" placeholder="Valor" required>
+        <textarea name="description" placeholder="Descrição" required></textarea>
+        <button type="submit">Adicionar Item</button>
+    </form>
+
+    <h2>Itens</h2>
+    <ul>
+        <% items.forEach(item => { %>
+            <li>
+                <strong><%= item.name %></strong> - <%= item.value %> - <%= item.description %>
+                <form action="/update/<%= item._id %>" method="POST" style="display:inline;">
+                    <input type="text" name="name" placeholder="Nome" value="<%= item.name %>" required>
+                    <input type="number" name="value" placeholder="Valor" value="<%= item.value %>" required>
+                    <textarea name="description" required><%= item.description %></textarea>
+                    <button type="submit">Atualizar</button>
+                </form>
+                <form action="/delete/<%= item._id %>" method="POST" style="display:inline;">
+                    <button type="submit">Excluir</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
